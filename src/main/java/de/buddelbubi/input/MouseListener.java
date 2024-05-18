@@ -21,7 +21,6 @@ public class MouseListener implements NativeMouseListener {
 
     @Override
     public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
-        System.out.println(nativeMouseEvent.getButton());
         if(nativeMouseEvent.getButton() == 2) {
             RIGHT_IN_USE = true;
         } else if (nativeMouseEvent.getButton() == 1) {
@@ -53,11 +52,9 @@ public class MouseListener implements NativeMouseListener {
         if(RIGHT_IN_USE) {
             if(OVERWRITE_MOUSE) {
                 OVERWRITE_MOUSE = false;
-                System.out.println("Mouse is locked");
                 ScreenReader.getROBOT().mousePress(InputEvent.BUTTON3_DOWN_MASK);
             } else {
                 OVERWRITE_MOUSE = true;
-                System.out.println("Mouse is unlocked");
                 ScreenReader.getROBOT().mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
             }
             return true;

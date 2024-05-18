@@ -114,7 +114,6 @@ public class CashReader {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
-                        System.out.println(found);
                         if(gotMoney && !found && !MouseListener.RIGHT_IN_USE && !ScreenReader.isFirstPerson()) {
                             updateMoney();
                             gotMoney = false;

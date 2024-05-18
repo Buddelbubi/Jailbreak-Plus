@@ -4,6 +4,7 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import de.buddelbubi.display.ScreenReader;
 import de.buddelbubi.display.actions.*;
+import de.buddelbubi.display.robberies.RobberyDetector;
 import de.buddelbubi.misc.KeyIdentifier;
 import de.buddelbubi.misc.Settings;
 
@@ -41,7 +42,6 @@ public class KeyboardListener implements NativeKeyListener {
         if(!Settings.ENABLED) return;
 
         if(!ScreenReader.isRobloxFront()) {
-            System.out.println("Could not detect valid Roblox Instance!");
             return;
         }
 
@@ -70,7 +70,7 @@ public class KeyboardListener implements NativeKeyListener {
                         AirdropGlitch.start();
                         break;
                     case "n":
-                        //CashReader.updateMoney();
+                        RobberyDetector.getRobberyIdentity();
                         break;
                     case "h":
                         ItemSpam.toggle();
@@ -89,7 +89,6 @@ public class KeyboardListener implements NativeKeyListener {
         String key = KeyIdentifier.getKey(nativeKeyEvent.getKeyCode());
         if(key == null) return;
         PRESSED_KEYS.remove(key);
-        System.out.println("Released " + key);
     }
 
     @Override

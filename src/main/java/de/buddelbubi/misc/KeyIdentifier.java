@@ -25,8 +25,6 @@ public class KeyIdentifier {
                 return "n";
             case 57:
                 return "space";
-            default:
-                System.out.println("Unused key: " + key);
         }
         return null;
     }
