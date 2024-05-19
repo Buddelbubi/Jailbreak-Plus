@@ -23,8 +23,10 @@ public class KeyboardListener implements NativeKeyListener {
     public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
         int code = nativeKeyEvent.getKeyCode();
         String key = KeyIdentifier.getKey(code);
-        if(code >= 2 && code <= 10) {
+
+        if(code >= 2 && code <= 10 && PRESSED_KEYS.contains("g")) {
             ItemSpam.ITEM = code + 47;
+            System.out.println("Locked in Item " + code);
         }
 
         if(key == null) return;
@@ -48,6 +50,10 @@ public class KeyboardListener implements NativeKeyListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
+                System.out.println((code >= 2 )+ " " + (code <= 10) + " " + PRESSED_KEYS.contains("g"));
+
                 switch (key) {
                    /* case "space": #Not needed since they added the new worse jetpack.
                         Jetpack.pressedSpace();
@@ -70,10 +76,13 @@ public class KeyboardListener implements NativeKeyListener {
                         AirdropGlitch.start();
                         break;
                     case "n":
-                        RobberyDetector.getRobberyIdentity();
+                        //RobberyDetector.getRobberyIdentity();
+                        HackTheComputer.run();
                         break;
-                    case "h":
-                        ItemSpam.toggle();
+                    case "g":
+                        if(!VehicleAutomatisation.isDriving()) {
+                            ItemSpam.toggle();
+                        }
                         break;
                     case "enter":
                         ChatDetection.relaxChat();

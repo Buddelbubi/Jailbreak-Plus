@@ -109,11 +109,6 @@ public class CashReader {
                             }
                         }
 
-                        try {
-                            ImageIO.write(capture, "png", new File("modified_example.png"));
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
                         if(gotMoney && !found && !MouseListener.RIGHT_IN_USE && !ScreenReader.isFirstPerson()) {
                             updateMoney();
                             gotMoney = false;
@@ -122,7 +117,7 @@ public class CashReader {
 
                     }
                     try {
-                        TimeUnit.SECONDS.sleep(2);
+                        TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         throw new RuntimeException(e);

@@ -1,17 +1,17 @@
 package de.buddelbubi.display.robberies;
 
 import de.buddelbubi.display.ScreenReader;
+import lombok.Getter;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class RobberyDetector {
 
+    @Getter
+    private static String robbery = "none";
 
     private static final Map<String, int[]> robberies = Map.ofEntries(
             Map.entry("city_bank", new int[]{26, 20, 53}),
@@ -26,8 +26,8 @@ public class RobberyDetector {
             Map.entry("prison", new int[]{25, 64, 10})
     );
     private static final float[] filter = {255/97f, 255/139.84f, 255/185f};
-    
-    public static int[] getRobberyIdentity() {
+
+    private static String readRobbery() {
 
         Point map_upper_corner = ScreenReader.calculateElementPos(0, 0.6, 0);
         int sidepanel_hight = (int) (ScreenReader.SCREEN.height * 0.4);
@@ -84,7 +84,23 @@ public class RobberyDetector {
             }
         }
         System.out.println(robbery + " " + bestScore + " " + dark + " " + below100);
-        return new int[]{r,g,b};
+        return robbery;
+    }
+
+    public static void init() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    robbery = readRobbery();
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }).start();
     }
 
 }

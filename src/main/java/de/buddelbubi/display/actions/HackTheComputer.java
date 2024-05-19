@@ -125,7 +125,7 @@ public class HackTheComputer {
     }
 
     private static List<Point> calculateShortestPath(Color c) {
-        System.out.println("Searching path..");
+        System.out.println("Searching path.. " + c.toString());
         List<Point> nodes = new ArrayList<>();
 
         Point sp = start.get(c);

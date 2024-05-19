@@ -13,8 +13,8 @@ public class KeyIdentifier {
                 return "y";
             case 28:
                 return "enter";
-            case 35:
-                return "h";
+            case 34:
+                return "g";
             case 45:
                 return "x";
             case 47:
@@ -25,6 +25,8 @@ public class KeyIdentifier {
                 return "n";
             case 57:
                 return "space";
+            default:
+                System.out.println("UNUSED KEY: " + key);
         }
         return null;
     }

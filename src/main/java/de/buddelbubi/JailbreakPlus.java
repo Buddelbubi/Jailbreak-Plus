@@ -5,6 +5,8 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import de.buddelbubi.display.ScreenReader;
 import de.buddelbubi.display.actions.CashReader;
+import de.buddelbubi.display.robberies.Casino;
+import de.buddelbubi.display.robberies.RobberyDetector;
 import de.buddelbubi.input.KeyboardListener;
 import de.buddelbubi.input.MouseListener;
 import de.buddelbubi.ui.UI;
@@ -17,6 +19,9 @@ public class JailbreakPlus {
         ScreenReader.initRobot();
         UI.buildStatus();
         CashReader.init();
+        RobberyDetector.init();
+
+        Casino.init();
         try {
             GlobalScreen.registerNativeHook();
         } catch (NativeHookException e) {
