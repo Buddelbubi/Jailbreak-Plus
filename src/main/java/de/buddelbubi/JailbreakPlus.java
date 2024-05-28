@@ -13,9 +13,11 @@ import de.buddelbubi.ui.UI;
 
 public class JailbreakPlus {
 
+    private static final String VERSION = "r1"; //RELEASE #
+
     public static void main(String[] args) {
 
-        System.out.println("Jailbreak Plus by Buddelbubi");
+        System.out.println("Jailbreak " + VERSION + " Plus by Buddelbubi");
         ScreenReader.initRobot();
         UI.buildStatus();
         CashReader.init();
