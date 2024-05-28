@@ -16,7 +16,7 @@ public class CashReader {
     public static JFrame MONEY = null;
     public static JLabel LABEL = new JLabel();
     public static void updateMoney() {
-
+        Color[] middleColors = new Color[] {new Color(175, 254, 88), new Color(169, 246, 85)};
         Point origin = MouseInfo.getPointerInfo().getLocation();
 
         Point money = ScreenReader.calculateElementPos(0, 0.6, 0);
@@ -28,15 +28,15 @@ public class CashReader {
         int ui_x = (int) (ui_y*2.88f);
         Point p = new Point((ScreenReader.SCREEN.width - ui_x) / 2, (((ScreenReader.SCREEN.height - (ui_y + 36) ) /2) + 36));
         Point middle = new Point(p);
-        middle.y += ui_x / 20;
+        middle.y += (ui_x / 20);
         middle.x += ui_x/2;
-        if(!ScreenReader.awaitColor(middle, new Color(175, 254, 88), 10)) return;
+        if(!ScreenReader.awaitColor(middle, middleColors, 10)) return;
         p.x += ui_x - (ui_x*0.05f) - (ui_x/20) * 5;
         Rectangle captureRect = new Rectangle(p.x, p.y, (ui_x/20) * 5, ui_x/20);
         BufferedImage capture = ScreenReader.getROBOT().createScreenCapture(captureRect);
         ScreenReader.moveMouse(money);
         ScreenReader.click();
-        if(!ScreenReader.awaitColor(middle, new Color(175, 254, 88), 10));
+        if(!ScreenReader.awaitColor(middle, middleColors, 10));
         ScreenReader.moveMouse(origin);
         BufferedImage image = new BufferedImage(capture.getWidth() , capture.getHeight(), BufferedImage.TYPE_INT_ARGB);
 

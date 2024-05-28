@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class ScreenReader {
@@ -39,9 +40,7 @@ public class ScreenReader {
             if(i != 0) {
                 try {
                     Thread.sleep(3);
-                }catch (Exception e) {
-
-                }
+                }catch (Exception e) {}
             }
         }
     }
@@ -55,14 +54,22 @@ public class ScreenReader {
         getROBOT().mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
-    public static boolean awaitColor(Point p, Color wanted) {
+
+    public static boolean awaitColor(Point p, Color... wanted) {
         return awaitColor(p, wanted, 25);
     }
-    public static boolean awaitColor(Point p, Color wanted, int tries) {
+
+    public static boolean awaitColor(Point p, Color wantedColors, int tries) {
+        return awaitColor(p, new Color[] {wantedColors}, tries);
+    }
+
+    public static boolean awaitColor(Point p, Color[] wantedColors, int tries) {
         for(int i = 0; i < tries; i++) {
             Color color = ScreenReader.getROBOT().getPixelColor(p.x, p.y);
             //System.out.println("Color: " + color  +"  "  +wanted);
-            if(color.equals(wanted)) return true;
+            for(Color wanted : wantedColors) {
+                if(color.equals(wanted)) return true;
+            }
             try {
                 TimeUnit.MILLISECONDS.sleep(10);
             } catch (Exception e) {
