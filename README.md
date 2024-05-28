@@ -21,4 +21,7 @@ This tool provides:
 Download:
 https://github.com/Buddelbubi/Jailbreak-Plus/releases
 
-# Jailbreak Plus is NOT an exploit or a cheat. This tool analyzes the content of your screen to click through the UIs
+If you are a hardcore grinder like I was (378 Million), you do not wanna grind without this tool. The time I spent coding is wont make up the money I could grinded in that time, but I love coding. Thats why I made this. 
+
+
+# Jailbreak Plus is NOT an exploit or a cheat. This tool analyzes the content of your screen to click through the UIs. I like to call this program "Macros on sterioids"
