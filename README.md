@@ -21,6 +21,9 @@ This tool provides:
 Download:
 https://github.com/Buddelbubi/Jailbreak-Plus/releases
 
+You need at least Java Runtime Environment 17!
+To start it, double click the file or if you want to see the debug console, start the jar with "java -jar JailbreakPlus-1.0-SNAPSHOT.jar"
+
 If you are a hardcore grinder like I was (378 Million), you do not wanna grind without this tool. The time I spent coding is wont make up the money I could grinded in that time, but I love coding. Thats why I made this. 
 
 
