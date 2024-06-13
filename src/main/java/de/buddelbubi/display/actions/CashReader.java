@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class CashReader {
+
     public static JFrame MONEY = null;
     public static JLabel LABEL = new JLabel();
+
     public static void updateMoney() {
         Color[] middleColors = new Color[] {new Color(175, 254, 88), new Color(169, 246, 85)};
         Point origin = MouseInfo.getPointerInfo().getLocation();
