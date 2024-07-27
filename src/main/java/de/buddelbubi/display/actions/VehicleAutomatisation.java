@@ -69,7 +69,15 @@ public class VehicleAutomatisation {
                         applyGarage();
                     }
                     if(Settings.AUTOMATIC_LOCK) {
-                        lockVehicle(false);
+                        new Thread(() -> {
+                            while(!lockVehicle(false) && Settings.ENABLED && isDriving()){
+                                try {
+                                    TimeUnit.SECONDS.sleep(1);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }).start();
                     }
                     break;
                 } else {
@@ -105,7 +113,8 @@ public class VehicleAutomatisation {
         Settings.IN_ACTION = false;
     }
 
-    public static void lockVehicle(boolean allowUnlock) {
+    public static boolean lockVehicle(boolean allowUnlock) {
+        if(MouseListener.RIGHT_IN_USE) return false;
         Point origin = MouseInfo.getPointerInfo().getLocation();
         Point lock = ScreenReader.calculateElementPos(0.4006, 0.835);
         if(allowUnlock || !ScreenReader.getColor(lock).equals(Color.WHITE)) {
@@ -116,6 +125,7 @@ public class VehicleAutomatisation {
             ScreenReader.moveMouse(origin);
             Settings.IN_ACTION = false;
         }
+        return ScreenReader.getColor(lock).equals(Color.WHITE);
     }
 
     public static boolean isDriving() {
