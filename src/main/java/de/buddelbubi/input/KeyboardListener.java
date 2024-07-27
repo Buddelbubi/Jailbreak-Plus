@@ -50,15 +50,8 @@ public class KeyboardListener implements NativeKeyListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-
                 System.out.println((code >= 2 )+ " " + (code <= 10) + " " + PRESSED_KEYS.contains("g"));
-
                 switch (key) {
-                   /* case "space": #Not needed since they added the new worse jetpack.
-                        Jetpack.pressedSpace();
-                        VehicleAutomatisation.ENTERED = false;
-                        break;*/
                     case "v":
                         new Thread(new Runnable() {
                             @Override
@@ -75,9 +68,11 @@ public class KeyboardListener implements NativeKeyListener {
                     case "b":
                         AirdropGlitch.start();
                         break;
+                    case "l":
+                        VehicleAutomatisation.lockVehicle(true);
+                        break;
                     case "n":
-                        //RobberyDetector.getRobberyIdentity();
-                        HackTheComputer.run();
+                        //HackTheComputer.run();
                         break;
                     case "g":
                         if(!VehicleAutomatisation.isDriving()) {
