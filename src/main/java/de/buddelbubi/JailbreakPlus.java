@@ -21,18 +21,17 @@ public class JailbreakPlus {
         ScreenReader.initRobot();
         UI.buildStatus();
         CashReader.init();
-        RobberyDetector.init();
-
-        Casino.init();
-        try {
-            GlobalScreen.registerNativeHook();
-        } catch (NativeHookException e) {
-            throw new RuntimeException(e);
-        }
-        GlobalScreen.addNativeKeyListener(new KeyboardListener());
-        GlobalScreen.addNativeMouseListener(new MouseListener());
-
-
+        //RobberyDetector.init();
+        //Casino.init();
+        new Thread(() -> {
+            try {
+                GlobalScreen.registerNativeHook();
+            } catch (NativeHookException e) {
+                throw new RuntimeException(e);
+            }
+            GlobalScreen.addNativeKeyListener(new KeyboardListener());
+            GlobalScreen.addNativeMouseListener(new MouseListener());
+        }).start();
     }
 
 }
