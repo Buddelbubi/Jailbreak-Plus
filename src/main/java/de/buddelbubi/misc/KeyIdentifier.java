@@ -15,6 +15,8 @@ public class KeyIdentifier {
                 return "enter";
             case 34:
                 return "g";
+            case 38:
+                return "l";
             case 45:
                 return "x";
             case 47:
