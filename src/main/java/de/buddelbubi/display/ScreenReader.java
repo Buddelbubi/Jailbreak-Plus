@@ -28,7 +28,7 @@ public class ScreenReader {
     }
 
     public static boolean isRobloxFront() {
-        return ROBOT.getPixelColor(27, 11).equals(new Color(255, 255, 255));
+        return getColor(new Point(27, 11)).equals(Color.WHITE);
     }
 
     private static Point lastMoved = null;
@@ -48,12 +48,15 @@ public class ScreenReader {
         Point mouse = MouseInfo.getPointerInfo().getLocation();
 
         if(mouse.distance(lastMoved) > 3) {
-            getROBOT().mouseMove(lastMoved.x  , lastMoved.y);
+            getROBOT().mouseMove(lastMoved.x, lastMoved.y);
         }
         getROBOT().mousePress(InputEvent.BUTTON1_DOWN_MASK);
         getROBOT().mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
+    public static Color getColor(Point p) {
+        return ScreenReader.getROBOT().getPixelColor(p.x, p.y);
+    }
 
     public static boolean awaitColor(Point p, Color... wanted) {
         return awaitColor(p, wanted, 25);
@@ -65,7 +68,7 @@ public class ScreenReader {
 
     public static boolean awaitColor(Point p, Color[] wantedColors, int tries) {
         for(int i = 0; i < tries; i++) {
-            Color color = ScreenReader.getROBOT().getPixelColor(p.x, p.y);
+            Color color = getColor(p);
             //System.out.println("Color: " + color  +"  "  +wanted);
             for(Color wanted : wantedColors) {
                 if(color.equals(wanted)) return true;
@@ -80,9 +83,9 @@ public class ScreenReader {
     }
 
     public static boolean awaitColorGone(Point p, int tries) {
-        Color wanted = ScreenReader.getROBOT().getPixelColor(p.x, p.y);
+        Color wanted = getColor(p);
         for(int i = 0; i < tries; i++) {
-            Color color = ScreenReader.getROBOT().getPixelColor(p.x, p.y);
+            Color color = getColor(p);
             if(!color.equals(wanted)) return true;
             try {
                 TimeUnit.MILLISECONDS.sleep(10);
