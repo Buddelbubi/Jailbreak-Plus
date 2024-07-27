@@ -18,12 +18,12 @@ public class CashReader {
     public static JLabel LABEL = new JLabel();
 
     public static void updateMoney() {
+
         Color[] middleColors = new Color[] {new Color(175, 254, 88), new Color(169, 246, 85)};
         Point origin = MouseInfo.getPointerInfo().getLocation();
-
         Point money = ScreenReader.calculateElementPos(0, 0.6, 0);
         money.x += ScreenReader.SCREEN.height * 0.4 * 0.4 * 0.75;
-        money.y -= money.x- money.x/3;
+        money.y -= money.x-money.x/3;
         ScreenReader.moveMouse(money);
         ScreenReader.click();
         int ui_y = (int) ((ScreenReader.SCREEN.height-36)*0.25f);
@@ -97,7 +97,11 @@ public class CashReader {
 
                     if(ScreenReader.isRobloxFront() && Settings.ENABLED) {
 
-                        if(MONEY == null && !MouseListener.RIGHT_IN_USE && !ScreenReader.isFirstPerson()) updateMoney();
+                        if(MONEY == null && !MouseListener.RIGHT_IN_USE && !ScreenReader.isFirstPerson() && !Settings.IN_ACTION) {
+                            Settings.IN_ACTION = true;
+                            updateMoney();
+                            Settings.IN_ACTION = false;
+                        }
 
                         Rectangle captureRect = new Rectangle(ScreenReader.SCREEN.width/2, (int) (ScreenReader.SCREEN.height*0.6), 200, 100);
                         BufferedImage capture = ScreenReader.getROBOT().createScreenCapture(captureRect);
@@ -116,7 +120,6 @@ public class CashReader {
                             gotMoney = false;
                         }
                         if(found) gotMoney = true;
-
                     }
                     try {
                         TimeUnit.SECONDS.sleep(1);
