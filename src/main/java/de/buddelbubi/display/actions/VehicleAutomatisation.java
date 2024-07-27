@@ -4,6 +4,7 @@ import de.buddelbubi.display.ScreenReader;
 import de.buddelbubi.input.KeyboardListener;
 import de.buddelbubi.input.MouseListener;
 import de.buddelbubi.misc.Settings;
+import lombok.SneakyThrows;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -15,10 +16,12 @@ import java.util.concurrent.TimeUnit;
 public class VehicleAutomatisation {
 
     //Spawn your first favorited car
+    @SneakyThrows
     public static void spawnFirstFavorite() {
 
         if (isDriving() && !MouseListener.RIGHT_IN_USE) {
             applyGarage();
+            lockVehicle(false);
             return;
         }
 
@@ -39,6 +42,7 @@ public class VehicleAutomatisation {
             if (!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179), 50)) return;
             ScreenReader.moveMouse(favorite_cars);
             ScreenReader.click();
+            Thread.sleep(3);
             ScreenReader.moveMouse(garage); //Move it away so cursor is not on the star
             Point first_favorite = ScreenReader.calculateElementPos(0.3, 0.2, 0);
             if (!ScreenReader.awaitColor(favorite_cars, new Color(255, 251, 0), 50)) return;
@@ -59,20 +63,24 @@ public class VehicleAutomatisation {
         ENTERED = false;
         if(!MouseListener.RIGHT_IN_USE) {
             System.out.println("Entered Vehicle");
-            if (Settings.AUTOMATIC_GARAGE) {
-                for(int i = 0; i < 15; i++) {
-                    if(isDriving()) {
+            for(int i = 0; i < 15; i++) {
+                if(isDriving()) {
+                    if (Settings.AUTOMATIC_GARAGE) {
                         applyGarage();
-                        break;
-                    } else {
-                        try {
-                            TimeUnit.MILLISECONDS.sleep(10);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+                    }
+                    if(Settings.AUTOMATIC_LOCK) {
+                        lockVehicle(false);
+                    }
+                    break;
+                } else {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(10);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }
+
         } else ENTERED = true;
 
     }
@@ -95,25 +103,35 @@ public class VehicleAutomatisation {
             ScreenReader.moveMouse(origin);
         }
         Settings.IN_ACTION = false;
+    }
 
+    public static void lockVehicle(boolean allowUnlock) {
+        Point origin = MouseInfo.getPointerInfo().getLocation();
+        Point lock = ScreenReader.calculateElementPos(0.4006, 0.835);
+        if(allowUnlock || !ScreenReader.getColor(lock).equals(Color.WHITE)) {
+            Settings.IN_ACTION = true;
+            ScreenReader.moveMouse(lock);
+            ScreenReader.click();
+            ScreenReader.awaitColor(lock, Color.WHITE, 5);
+            ScreenReader.moveMouse(origin);
+            Settings.IN_ACTION = false;
+        }
     }
 
     public static boolean isDriving() {
 
-        Point lock = ScreenReader.calculateElementPos(0.374, 0.9);
+        Point bar = ScreenReader.calculateElementPos(0.374, 0.9);
         Color color = null;
-       // Color round = new Color(252, 40,47);
         for(int i = 0; i < 5; i++) {
-            Color round = ScreenReader.getROBOT().getPixelColor(lock.x, lock.y + i);
+            Color round = ScreenReader.getROBOT().getPixelColor(bar.x, bar.y + i);
             if(color == null) {
                 color = round;
             } else if(!color.equals(round)) {
                 return false;
             }
         }
-        System.out.println("Vehicle detected with Color: " + color);
-        return true;
+        Point lock = ScreenReader.calculateElementPos(0.397, 0.835);
+        return ScreenReader.getColor(lock).equals(Color.WHITE);
     }
-
 
 }
