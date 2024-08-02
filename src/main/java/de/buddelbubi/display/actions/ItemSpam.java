@@ -1,6 +1,7 @@
 package de.buddelbubi.display.actions;
 
 import de.buddelbubi.display.ScreenReader;
+import de.buddelbubi.misc.Settings;
 
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -27,7 +28,7 @@ public class ItemSpam {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-
+                    Settings.IN_ACTION = true;
                     while(doSpam) {
                         try {
                             ScreenReader.getROBOT().keyPress(ITEM);
@@ -64,6 +65,7 @@ public class ItemSpam {
                             throw new RuntimeException(e);
                         }
                     }
+                    Settings.IN_ACTION = false;
                 }
             }) {
 
