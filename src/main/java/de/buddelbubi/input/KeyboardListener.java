@@ -21,6 +21,7 @@ public class KeyboardListener implements NativeKeyListener {
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
+
         int code = nativeKeyEvent.getKeyCode();
         String key = KeyIdentifier.getKey(code);
 
@@ -50,7 +51,7 @@ public class KeyboardListener implements NativeKeyListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println((code >= 2 )+ " " + (code <= 10) + " " + PRESSED_KEYS.contains("g"));
+
                 switch (key) {
                     case "v":
                         new Thread(new Runnable() {
