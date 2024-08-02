@@ -36,9 +36,15 @@ public class CashReader {
         p.x += ui_x - (ui_x*0.05f) - (ui_x/20) * 5;
         Rectangle captureRect = new Rectangle(p.x, p.y, (ui_x/20) * 5, ui_x/20);
         BufferedImage capture = ScreenReader.getROBOT().createScreenCapture(captureRect);
-        ScreenReader.moveMouse(money);
-        ScreenReader.click();
-        if(!ScreenReader.awaitColor(middle, middleColors, 10));
+        while(ScreenReader.awaitColor(middle, middleColors, 1)) {
+            ScreenReader.moveMouse(money);
+            ScreenReader.click();
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         ScreenReader.moveMouse(origin);
         BufferedImage image = new BufferedImage(capture.getWidth() , capture.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
@@ -116,7 +122,9 @@ public class CashReader {
                         }
 
                         if(gotMoney && !found && !MouseListener.RIGHT_IN_USE && !ScreenReader.isFirstPerson()) {
+                            Settings.IN_ACTION = true;
                             updateMoney();
+                            Settings.IN_ACTION = false;
                             gotMoney = false;
                         }
                         if(found) gotMoney = true;
