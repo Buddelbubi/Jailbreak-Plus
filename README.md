@@ -16,8 +16,6 @@ This tool provides:
 
 - More features will be added
 
-//ToDo:
-- Fixing Casino Auto Vault opening (Detecting if the button is green and pressing e)
 
 
 Download:
