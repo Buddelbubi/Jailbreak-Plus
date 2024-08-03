@@ -26,6 +26,7 @@ To start it, double click the file or if you want to see the debug console, star
 
 Download Java:
 https://www.oracle.com/de/java/technologies/downloads/#java21
+
 Windows MSI Installer for Java 21:
 https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.msi
 
