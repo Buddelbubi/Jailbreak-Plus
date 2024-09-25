@@ -14,7 +14,7 @@ public class ItemSpam {
     public static long lastCTRL = 0;
     public static boolean doCTRL = true; //CTRL Boosts increase speed by alot, but movement is more unpredictable!
 
-    static int timebetween = 9;
+    static int timebetween = 10;
 
     public static void toggle() {
 
@@ -43,10 +43,8 @@ public class ItemSpam {
                             if(doCTRL) {
                                 if (System.currentTimeMillis() - lastCTRL > 4900) {
                                     new Thread(new Runnable() {
-
                                         @Override
                                         public void run() {
-
                                             try {
                                                 ScreenReader.getROBOT().keyPress(KeyEvent.VK_SPACE);
                                                 TimeUnit.MILLISECONDS.sleep(100);
@@ -68,10 +66,7 @@ public class ItemSpam {
                     Settings.IN_ACTION = false;
                 }
             }) {
-
             }.start();
         }
-
     }
-
 }
