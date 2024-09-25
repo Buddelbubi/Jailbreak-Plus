@@ -19,7 +19,7 @@ public class Settings {
     public static int STATUS_SIZE = 30;
     public static int ZOOM_SCROLL_AMOUNT = 700;
 
-    public static int SCREEN_WAIT_MILLIS = 1; //Increasing will help performance. Feel free to adjust to your hardware.
+    public static int SCREEN_WAIT_MILLIS = 10; //Increasing will help performance. Feel free to adjust to your hardware.
 
     public static boolean toggleEnable() {
         ENABLED = !ENABLED;
