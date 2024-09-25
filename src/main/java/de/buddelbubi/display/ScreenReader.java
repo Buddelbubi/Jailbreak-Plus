@@ -1,5 +1,6 @@
 package de.buddelbubi.display;
 
+import de.buddelbubi.misc.Settings;
 import lombok.Getter;
 
 import java.awt.*;
@@ -74,7 +75,7 @@ public class ScreenReader {
                 if(color.equals(wanted)) return true;
             }
             try {
-                TimeUnit.MILLISECONDS.sleep(10);
+                TimeUnit.MILLISECONDS.sleep(Settings.SCREEN_WAIT_MILLIS);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -88,7 +89,7 @@ public class ScreenReader {
             Color color = getColor(p);
             if(!color.equals(wanted)) return true;
             try {
-                TimeUnit.MILLISECONDS.sleep(10);
+                TimeUnit.MILLISECONDS.sleep(Settings.SCREEN_WAIT_MILLIS);
             } catch (Exception e) {
                 e.printStackTrace();
             }
