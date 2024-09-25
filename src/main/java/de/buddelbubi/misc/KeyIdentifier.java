@@ -13,6 +13,8 @@ public class KeyIdentifier {
                 return "y";
             case 28:
                 return "enter";
+            case 33:
+                return "f";
             case 34:
                 return "g";
             case 38:
