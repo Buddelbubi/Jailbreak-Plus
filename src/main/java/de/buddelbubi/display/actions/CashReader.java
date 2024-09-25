@@ -19,7 +19,7 @@ public class CashReader {
 
     public static void updateMoney() {
 
-        Color[] middleColors = new Color[] {new Color(175, 254, 88), new Color(169, 246, 85)};
+        Color[] middleColors = new Color[] {new Color(175, 254, 88), new Color(169, 246, 85), new Color(168,246, 85)};
         Point origin = MouseInfo.getPointerInfo().getLocation();
         Point money = ScreenReader.calculateElementPos(0, 0.6, 0);
         money.x += ScreenReader.SCREEN.height * 0.4 * 0.4 * 0.75;
@@ -32,6 +32,7 @@ public class CashReader {
         Point middle = new Point(p);
         middle.y += (ui_x / 20);
         middle.x += ui_x/2;
+        System.out.println(ScreenReader.getColor(middle));
         if(!ScreenReader.awaitColor(middle, middleColors, 10)) return;
         p.x += ui_x - (ui_x*0.05f) - (ui_x/20) * 5;
         Rectangle captureRect = new Rectangle(p.x, p.y, (ui_x/20) * 5, ui_x/20);
