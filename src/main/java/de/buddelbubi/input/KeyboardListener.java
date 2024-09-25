@@ -24,11 +24,10 @@ public class KeyboardListener implements NativeKeyListener {
 
         int code = nativeKeyEvent.getKeyCode();
         String key = KeyIdentifier.getKey(code);
-
-        if(code >= 2 && code <= 10 && PRESSED_KEYS.contains("g")) {
-            ItemSpam.ITEM = code + 47;
-            System.out.println("Locked in Item " + code);
-        }
+//        if(code >= 2 && code <= 10 && PRESSED_KEYS.contains("g") && !Settings.IN_ACTION) {
+//            ItemSpam.ITEM = code + 47;
+//            System.out.println("Locked in Item " + code);
+//        }
 
         if(key == null) return;
         if(!PRESSED_KEYS.contains(key)) {
@@ -57,9 +56,9 @@ public class KeyboardListener implements NativeKeyListener {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                VehicleAutomatisation.spawnFirstFavorite();                            }
+                                VehicleAutomatisation.spawnFirstFavorite();
                             }
-                            ).start();
+                        }).start();
                         break;
                     case "e":
                         if(!VehicleAutomatisation.isDriving()) {
@@ -75,11 +74,12 @@ public class KeyboardListener implements NativeKeyListener {
                     case "n":
                         //HackTheComputer.run();
                         break;
-                    case "g":
-                        if(!VehicleAutomatisation.isDriving()) {
-                            ItemSpam.toggle();
-                        }
-                        break;
+//                    ## They added a cooldown. Therefore, Item Spam is useless. If you have a usecase, please open an issue.
+//                    case "g":
+//                        if(!VehicleAutomatisation.isDriving()) {
+//                            ItemSpam.toggle();
+//                        }
+//                        break;
                     case "enter":
                         ChatDetection.relaxChat();
                         break;
@@ -93,6 +93,7 @@ public class KeyboardListener implements NativeKeyListener {
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
         String key = KeyIdentifier.getKey(nativeKeyEvent.getKeyCode());
         if(key == null) return;
+        if(key.equals("f") && System.currentTimeMillis() - HoldF.getLastHit() <= 1) return;
         PRESSED_KEYS.remove(key);
     }
 
