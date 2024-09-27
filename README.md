@@ -13,6 +13,7 @@ This tool provides:
 - Optifine like zoom on VIP Servers with giveCinematic enabled (back sidebutton on mouse)
 - First item select (front sidebutton on mouse)
 - Lock and unlock vehicles faster (l)
+- Notify you when a cop is nearby
 
 - More features will be added
 
