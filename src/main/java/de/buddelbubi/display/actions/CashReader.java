@@ -86,6 +86,8 @@ public class CashReader {
             MONEY.setLocation(ScreenReader.SCREEN.width - LABEL.getWidth(), -5);
             MONEY.setUndecorated(true);
             MONEY.setAlwaysOnTop(true);
+            MONEY.setFocusableWindowState(false);
+            MONEY.setAutoRequestFocus(false);
             MONEY.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             MONEY.setBackground(new Color(0,0,0,0));
             MONEY.setVisible(true);

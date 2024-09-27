@@ -93,7 +93,6 @@ public class KeyboardListener implements NativeKeyListener {
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
         String key = KeyIdentifier.getKey(nativeKeyEvent.getKeyCode());
         if(key == null) return;
-        if(key.equals("f") && System.currentTimeMillis() - HoldF.getLastHit() <= 1) return;
         PRESSED_KEYS.remove(key);
     }
 

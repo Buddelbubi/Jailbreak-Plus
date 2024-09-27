@@ -5,16 +5,14 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import de.buddelbubi.display.ScreenReader;
 import de.buddelbubi.display.actions.CashReader;
-import de.buddelbubi.display.actions.HoldF;
-import de.buddelbubi.display.robberies.Casino;
-import de.buddelbubi.display.robberies.RobberyDetector;
+import de.buddelbubi.display.actions.NearbyCopDetector;
 import de.buddelbubi.input.KeyboardListener;
 import de.buddelbubi.input.MouseListener;
 import de.buddelbubi.ui.UI;
 
 public class JailbreakPlus {
 
-    private static final String VERSION = "r2"; //RELEASE #
+    private static final String VERSION = "r3"; //RELEASE #
 
     public static void main(String[] args) {
 
@@ -22,7 +20,7 @@ public class JailbreakPlus {
         ScreenReader.initRobot();
         UI.buildStatus();
         CashReader.init();
-        HoldF.init();
+        NearbyCopDetector.init();
         //RobberyDetector.init();
         //Casino.init();
         new Thread(() -> {
