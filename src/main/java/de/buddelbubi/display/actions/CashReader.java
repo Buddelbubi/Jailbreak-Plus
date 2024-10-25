@@ -4,13 +4,12 @@ import de.buddelbubi.display.ScreenReader;
 import de.buddelbubi.input.MouseListener;
 import de.buddelbubi.misc.Settings;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
+import static de.buddelbubi.display.ScreenReader.ROBLOX_IU_SHIFT;
 
 public class CashReader {
 
@@ -19,25 +18,24 @@ public class CashReader {
 
     public static void updateMoney() {
 
-        Color[] middleColors = new Color[] {new Color(175, 254, 88), new Color(169, 246, 85), new Color(168,246, 85)};
         Point origin = MouseInfo.getPointerInfo().getLocation();
         Point money = ScreenReader.calculateElementPos(0, 0.6, 0);
         money.x += ScreenReader.SCREEN.height * 0.4 * 0.4 * 0.75;
         money.y -= money.x-money.x/3;
         ScreenReader.moveMouse(money);
         ScreenReader.click();
-        int ui_y = (int) ((ScreenReader.SCREEN.height-36)*0.25f);
+        int ui_y = (int) ((ScreenReader.SCREEN.height-46)*0.25f);
         int ui_x = (int) (ui_y*2.88f);
-        Point p = new Point((ScreenReader.SCREEN.width - ui_x) / 2, (((ScreenReader.SCREEN.height - (ui_y + 36) ) /2) + 36));
+        Point p = new Point((ScreenReader.SCREEN.width - ui_x) / 2, (((ScreenReader.SCREEN.height - (ui_y + 46) ) /2) + ScreenReader.ROBLOX_IU_SHIFT));
         Point middle = new Point(p);
         middle.y += (ui_x / 20);
         middle.x += ui_x/2;
         System.out.println(ScreenReader.getColor(middle));
-        if(!ScreenReader.awaitColor(middle, middleColors, 10)) return;
+        if(!awaitGreen(middle, 10)) return;
         p.x += ui_x - (ui_x*0.05f) - (ui_x/20) * 5;
         Rectangle captureRect = new Rectangle(p.x, p.y, (ui_x/20) * 5, ui_x/20);
         BufferedImage capture = ScreenReader.getROBOT().createScreenCapture(captureRect);
-        while(ScreenReader.awaitColor(middle, middleColors, 1)) {
+        while(awaitGreen(middle, 1)) {
             ScreenReader.moveMouse(money);
             ScreenReader.click();
             try {
@@ -142,5 +140,25 @@ public class CashReader {
             }
         }).start();
     }
+
+    public static boolean awaitGreen(Point p, int tries) {
+        for(int i = 0; i < tries; i++) {
+            Color color = ScreenReader.getColor(p);
+            int r = color.getRed();
+            int g = color.getGreen();
+            int b = color.getBlue();
+            //Those values were taken from a screenshot of the money UI in 1440p
+            if(r > 160 && r < 180 && g > 240 && b < 95 && b > 82) {
+                return true;
+            }
+            try {
+                TimeUnit.MILLISECONDS.sleep(Settings.SCREEN_WAIT_MILLIS);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 
 }
