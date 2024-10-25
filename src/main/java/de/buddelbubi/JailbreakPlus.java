@@ -12,7 +12,7 @@ import de.buddelbubi.ui.UI;
 
 public class JailbreakPlus {
 
-    private static final String VERSION = "r3"; //RELEASE #
+    private static final String VERSION = "r4"; //RELEASE #
 
     public static void main(String[] args) {
 
