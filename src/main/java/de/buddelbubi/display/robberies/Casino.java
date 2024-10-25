@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import static de.buddelbubi.display.ScreenReader.ROBLOX_IU_SHIFT;
+
 public class Casino {
 
     private static long lastClick = 0;
@@ -23,7 +25,7 @@ public class Casino {
                         if (ScreenReader.isRobloxFront()) {
                             Point start = ScreenReader.calculateElementPos(0.25, 0.15);
                             Point end = ScreenReader.calculateElementPos(0.5, 0.7);
-                            Rectangle captureRect = new Rectangle(start.x, start.y, end.x, end.y- 36);
+                            Rectangle captureRect = new Rectangle(start.x, start.y, end.x, end.y-ROBLOX_IU_SHIFT);
                             BufferedImage capture = ScreenReader.getROBOT().createScreenCapture(captureRect);
                             for (int x = 0; x < capture.getWidth(); x++) {
                                 for (int y = 0; y < capture.getHeight(); y++) {
