@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ScreenReader {
 
+    public static final int ROBLOX_IU_SHIFT = 52;
     public static final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
     @Getter
     private static Robot ROBOT;
@@ -25,11 +26,11 @@ public class ScreenReader {
         return new Point((int) (SCREEN.width * x),  (int)((SCREEN.height-offset) * y) + offset);
     }
     public static Point calculateElementPos(double x, double y) {
-        return calculateElementPos(x, y, 36);
+        return calculateElementPos(x, y, ROBLOX_IU_SHIFT);
     }
 
     public static boolean isRobloxFront() {
-        return getColor(new Point(27, 11)).equals(Color.WHITE);
+        return getColor(new Point(36, 26)).equals(Color.WHITE);
     }
 
     private static Point lastMoved = null;
