@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ScreenReader {
 
-    public static final int ROBLOX_IU_SHIFT = 52;
+    public static final int ROBLOX_IU_SHIFT = 50;
     public static final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
     @Getter
     private static Robot ROBOT;
