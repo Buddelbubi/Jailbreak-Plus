@@ -1,16 +1,19 @@
 package de.buddelbubi.display;
 
+import com.github.kwhat.jnativehook.GlobalScreen;
 import de.buddelbubi.misc.Settings;
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class ScreenReader {
 
-    public static final int ROBLOX_IU_SHIFT = 50;
+    public static final int ROBLOX_IU_SHIFT = 48;
     public static final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
     @Getter
     private static Robot ROBOT;
@@ -71,7 +74,7 @@ public class ScreenReader {
     public static boolean awaitColor(Point p, Color[] wantedColors, int tries) {
         for(int i = 0; i < tries; i++) {
             Color color = getColor(p);
-            //System.out.println("Color: " + color  +"  "  +wanted);
+            System.out.println("Color: " + color);
             for(Color wanted : wantedColors) {
                 if(color.equals(wanted)) return true;
             }

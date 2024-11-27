@@ -38,24 +38,23 @@ public class VehicleAutomatisation {
             ScreenReader.click();
 
             //Not 100% accurate, had to calculate on pixels. Tested with 1440p and 1080p
-            Point favorite_cars = ScreenReader.calculateElementPos(0.63, 0.11, 0);
+            Point favorite_cars = ScreenReader.calculateElementPos(0.63, 0.105, 0);
             if (!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179), 50)) return;
             ScreenReader.moveMouse(favorite_cars);
             ScreenReader.click();
-            Thread.sleep(3);
-            ScreenReader.moveMouse(garage); //Move it away so cursor is not on the star
+            Thread.sleep(100);
+            //Move it away so cursor is not on the star
             Point first_favorite = ScreenReader.calculateElementPos(0.3, 0.2, 0);
-            if (!ScreenReader.awaitColor(favorite_cars, new Color(255, 251, 0), 50)) return;
             ScreenReader.moveMouse(first_favorite);
+            if (!ScreenReader.awaitColor(favorite_cars, new Color(255, 251, 0), 10)) return;
             ScreenReader.click();
-            enteredVehicle();
             ScreenReader.moveMouse(origin);
+            enteredVehicle();
             if(KeyboardListener.PRESSED_KEYS.contains("w")) {
                 ScreenReader.getROBOT().keyPress(KeyEvent.VK_W);
             }
             Settings.IN_ACTION = false;
         }
-
     }
 
     public static boolean ENTERED = false;

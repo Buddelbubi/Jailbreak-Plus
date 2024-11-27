@@ -26,7 +26,7 @@ public class CashReader {
         ScreenReader.click();
         int ui_y = (int) ((ScreenReader.SCREEN.height-46)*0.25f);
         int ui_x = (int) (ui_y*2.88f);
-        Point p = new Point((ScreenReader.SCREEN.width - ui_x) / 2, (((ScreenReader.SCREEN.height - (ui_y + 46) ) /2) + ScreenReader.ROBLOX_IU_SHIFT));
+        Point p = new Point((ScreenReader.SCREEN.width - ui_x) / 2, (((ScreenReader.SCREEN.height - (ui_y + 44) ) /2) + ScreenReader.ROBLOX_IU_SHIFT));
         Point middle = new Point(p);
         middle.y += (ui_x / 20);
         middle.x += ui_x/2;
