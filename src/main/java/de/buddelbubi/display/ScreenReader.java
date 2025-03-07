@@ -33,7 +33,7 @@ public class ScreenReader {
     }
 
     public static boolean isRobloxFront() {
-        return getColor(new Point(36, 26)).equals(Color.WHITE);
+        return getColor(new Point(36, 26)).equals(Color.decode("#F7F7F8"));
     }
 
     private static Point lastMoved = null;
