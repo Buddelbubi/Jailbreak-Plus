@@ -42,14 +42,24 @@ public class VehicleAutomatisation {
             if (!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179), 50)) return;
             ScreenReader.moveMouse(favorite_cars);
             ScreenReader.click();
-            Thread.sleep(100);
+            Thread.sleep(10);
             //Move it away so cursor is not on the star
             Point first_favorite = ScreenReader.calculateElementPos(0.3, 0.2, 0);
             ScreenReader.moveMouse(first_favorite);
-            if (!ScreenReader.awaitColor(favorite_cars, new Color(255, 251, 0), 10)) return;
-            ScreenReader.click();
-            ScreenReader.moveMouse(origin);
-            enteredVehicle();
+            Thread.sleep(10);
+            Point favoriteStar = ScreenReader.calculateElementPos(0.325, 0.24, 0); //The star inside the vehicle field. Ensures that the first vehicle is actually a favorite.
+            if (!ScreenReader.awaitColor(favoriteStar, new Color(255, 251, 0), 10)) {
+                ScreenReader.moveMouse(garage);
+                ScreenReader.click();
+                spawnFirstFavorite();
+                return;
+            }
+            while (ScreenReader.awaitColor(favoriteStar, new Color(255, 251, 0), 1)) {
+                ScreenReader.moveMouse(first_favorite);
+                ScreenReader.click();
+                ScreenReader.moveMouse(origin);
+                enteredVehicle();
+            }
             if(KeyboardListener.PRESSED_KEYS.contains("w")) {
                 ScreenReader.getROBOT().keyPress(KeyEvent.VK_W);
             }
