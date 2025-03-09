@@ -9,8 +9,8 @@ This tool provides:
 - Spawning your first favorized vehicle with the press of a button (V)
 - Do the Airdrop glitch with perfect timing (b)
 - Displaying your current money in the upper right corner.
-- Optifine like zoom on VIP Servers with giveCinematic enabled (back sidebutton on mouse)
-- First item select (front sidebutton on mouse)
+- Optifine like zoom on VIP Servers with giveCinematic enabled (H)
+- First / second item select (sidebuttons on mouse)
 - Lock and unlock vehicles faster (l)
 - Notify you when a cop is nearby
 
