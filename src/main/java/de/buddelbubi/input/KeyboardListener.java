@@ -71,6 +71,9 @@ public class KeyboardListener implements NativeKeyListener {
                     case "l":
                         VehicleAutomatisation.lockVehicle(true);
                         break;
+                    case "h":
+                        Optifine.startZoom();
+                        break;
                     case "n":
                         //HackTheComputer.run();
                         break;
@@ -93,6 +96,7 @@ public class KeyboardListener implements NativeKeyListener {
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
         String key = KeyIdentifier.getKey(nativeKeyEvent.getKeyCode());
         if(key == null) return;
+        if(key.equals("h")) Optifine.stopZoom();
         PRESSED_KEYS.remove(key);
     }
 

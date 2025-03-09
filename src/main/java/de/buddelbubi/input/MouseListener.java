@@ -26,10 +26,10 @@ public class MouseListener implements NativeMouseListener {
         } else if (nativeMouseEvent.getButton() == 1) {
             ChatDetection.handleClick();
         } else if(nativeMouseEvent.getButton() == 4) {
-            Optifine.startZoom();
+            Weapon.selectWeapon(KeyEvent.VK_2);
         }
         if(nativeMouseEvent.getButton() == 5) {
-            Weapon.selectWeapon();
+            Weapon.selectWeapon(KeyEvent.VK_1);
         }
 
     }
@@ -41,8 +41,6 @@ public class MouseListener implements NativeMouseListener {
             if(VehicleAutomatisation.isDriving() && VehicleAutomatisation.ENTERED) {
                 VehicleAutomatisation.enteredVehicle();
             }
-        } else if(nativeMouseEvent.getButton() == 4) {
-            Optifine.stopZoom();
         }
     }
 

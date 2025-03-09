@@ -6,10 +6,10 @@ import java.awt.event.KeyEvent;
 
 public class Weapon {
 
-    public static void selectWeapon() {
+    public static void selectWeapon(int key) {
         if(ScreenReader.isRobloxFront() && !VehicleAutomatisation.isDriving()) {
-            ScreenReader.getROBOT().keyPress(KeyEvent.VK_1);
-            ScreenReader.getROBOT().keyRelease(KeyEvent.VK_1);
+            ScreenReader.getROBOT().keyPress(key);
+            ScreenReader.getROBOT().keyRelease(key);
         }
     }
 
