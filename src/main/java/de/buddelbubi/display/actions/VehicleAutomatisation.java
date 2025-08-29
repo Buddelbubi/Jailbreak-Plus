@@ -15,9 +15,57 @@ import java.util.concurrent.TimeUnit;
 
 public class VehicleAutomatisation {
 
+    private static boolean priorFall = false;
+    private static long fallTimeStart = 0;
+
+    public static void init() {
+        new Thread(() -> {
+            while(Settings.FALL_TIME_TO_SPAWN != -1) {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if(Settings.ENABLED && ScreenReader.isRobloxFront()) {
+                    boolean isFalling = isFalling();
+                    if(isFalling) {
+                        Point point = ScreenReader.calculateElementPos(0.5, 0.6);
+                        Color color = ScreenReader.getColor(point);
+                        System.out.println("Color " + ": " + String.format("\033[38;2;%d;%d;%dm", color.getRed(), color.getGreen(), color.getBlue()) + " " + color + "\033[0m" );
+                    }
+                    if(priorFall) {
+                        if(!isFalling) {
+                            long ttf = System.currentTimeMillis() - fallTimeStart;
+                            if(ttf >= Settings.FALL_TIME_TO_SPAWN) {
+                                spawnFirstFavorite();
+                                fallTimeStart = 0;
+                            }
+                            System.out.println("Time to fall: " + ttf);
+                        }
+                    } else {
+                        if(isFalling) {
+                            fallTimeStart = System.currentTimeMillis();
+                        }
+                    }
+                    priorFall = isFalling;
+                }
+            }
+        }).start();
+    }
+
     //Spawn your first favorited car
     @SneakyThrows
     public static void spawnFirstFavorite() {
+
+        while (isFalling()) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(10);
+            } catch (Exception e) {
+                 e.printStackTrace();
+            }
+            spawnFirstFavorite();
+            return;
+        }
 
         if (isDriving() && !MouseListener.RIGHT_IN_USE) {
             applyGarage();
@@ -28,35 +76,37 @@ public class VehicleAutomatisation {
         //UI Element not present in Jailbreak Uncopylocked!! ): Had to make this tradeoff...
         //If someone can extract that data from the jb archive, that would be cool :)
         if(!MouseListener.RIGHT_IN_USE) {
-            if (ScreenReader.SCREEN.height < 1080) return;
             Settings.IN_ACTION = true;
+            if (ScreenReader.SCREEN.height < 1080) return;
+
             Point origin = MouseInfo.getPointerInfo().getLocation();
 
             Point garage = ScreenReader.calculateElementPos(0, 0.6, 0);
             garage.x += ScreenReader.SCREEN.height * 0.4 * 0.4 * 0.75;
             ScreenReader.moveMouse(garage);
             ScreenReader.click();
-
+            Thread.sleep(10);
             //Not 100% accurate, had to calculate on pixels. Tested with 1440p and 1080p
-            Point favorite_cars = ScreenReader.calculateElementPos(0.63, 0.105, 0);
-            if (!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179), 50)) return;
+            Point favorite_cars = ScreenReader.calculateElementPos(0.535, 0.105, 0);
+            if (!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179), 10)) return;
             ScreenReader.moveMouse(favorite_cars);
             ScreenReader.click();
             Thread.sleep(10);
+            ScreenReader.moveMouse(garage);
             //Move it away so cursor is not on the star
-            Point first_favorite = ScreenReader.calculateElementPos(0.3, 0.2, 0);
-            ScreenReader.moveMouse(first_favorite);
             Thread.sleep(10);
             Point favoriteStar = ScreenReader.calculateElementPos(0.325, 0.24, 0); //The star inside the vehicle field. Ensures that the first vehicle is actually a favorite.
-            if (!ScreenReader.awaitColor(favoriteStar, new Color(255, 251, 0), 10)) {
+            if (!ScreenReader.awaitColor(favoriteStar, new Color(255, 251, 0), 50)) {
                 ScreenReader.moveMouse(garage);
                 ScreenReader.click();
                 spawnFirstFavorite();
                 return;
             }
+            Point first_favorite = ScreenReader.calculateElementPos(0.3, 0.2, 0);
             while (ScreenReader.awaitColor(favoriteStar, new Color(255, 251, 0), 1)) {
                 ScreenReader.moveMouse(first_favorite);
                 ScreenReader.click();
+                Thread.sleep(10);
                 ScreenReader.moveMouse(origin);
                 enteredVehicle();
             }
@@ -111,7 +161,7 @@ public class VehicleAutomatisation {
         garage.x += ScreenReader.SCREEN.height*0.4*0.4*0.75;
         ScreenReader.moveMouse(garage);
         ScreenReader.click();
-        Point favorite_cars = ScreenReader.calculateElementPos(0.63, 0.11, 0);
+        Point favorite_cars = ScreenReader.calculateElementPos(0.535, 0.105, 0);
         if(!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179))) return;
         ScreenReader.moveMouse(garage);
         ScreenReader.click();
@@ -151,6 +201,12 @@ public class VehicleAutomatisation {
         }
         Point lock = ScreenReader.calculateElementPos(0.397, 0.835);
         return ScreenReader.getColor(lock).equals(Color.WHITE);
+    }
+
+    public static boolean isFalling() {
+        Point point = ScreenReader.calculateElementPos(0.5, 0.6);
+        Color color = ScreenReader.getColor(point);
+        return color.getRed() == color.getGreen() && color.getGreen() == color.getBlue() && color.getRed() > 40;
     }
 
 }

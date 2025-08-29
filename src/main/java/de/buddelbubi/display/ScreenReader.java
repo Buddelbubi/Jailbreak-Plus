@@ -25,9 +25,11 @@ public class ScreenReader {
             throw new RuntimeException(e);
         }
     }
+
     public static Point calculateElementPos(double x, double y, int offset) {
         return new Point((int) (SCREEN.width * x),  (int)((SCREEN.height-offset) * y) + offset);
     }
+
     public static Point calculateElementPos(double x, double y) {
         return calculateElementPos(x, y, ROBLOX_IU_SHIFT);
     }
@@ -74,7 +76,7 @@ public class ScreenReader {
     public static boolean awaitColor(Point p, Color[] wantedColors, int tries) {
         for(int i = 0; i < tries; i++) {
             Color color = getColor(p);
-            System.out.println("Color: " + color);
+            System.out.println("Color " + i + ": " + String.format("\033[38;2;%d;%d;%dm", color.getRed(), color.getGreen(), color.getBlue()) + " " + color + "\033[0m" );
             for(Color wanted : wantedColors) {
                 if(color.equals(wanted)) return true;
             }

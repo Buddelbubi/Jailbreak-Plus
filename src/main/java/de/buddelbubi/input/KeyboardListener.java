@@ -52,6 +52,11 @@ public class KeyboardListener implements NativeKeyListener {
             public void run() {
 
                 switch (key) {
+                    case "alt":
+                        if(Settings.ENABLED) {
+                            Settings.toggleEnable();
+                        }
+                        break;
                     case "v":
                         new Thread(new Runnable() {
                             @Override
@@ -97,6 +102,7 @@ public class KeyboardListener implements NativeKeyListener {
         String key = KeyIdentifier.getKey(nativeKeyEvent.getKeyCode());
         if(key == null) return;
         if(key.equals("h")) Optifine.stopZoom();
+        if(key.equals("alt") && !Settings.ENABLED) Settings.toggleEnable();
         PRESSED_KEYS.remove(key);
     }
 

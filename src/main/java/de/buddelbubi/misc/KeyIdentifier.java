@@ -1,9 +1,10 @@
 package de.buddelbubi.misc;
 
+import java.awt.event.KeyEvent;
+
 public class KeyIdentifier {
 
     public static String getKey(Integer key) {
-
         switch (key) {
             case 17:
                 return "w";
@@ -29,6 +30,8 @@ public class KeyIdentifier {
                 return "b";
             case 49:
                 return "n";
+            case 56:
+                return "alt";
             case 57:
                 return "space";
         }

@@ -18,6 +18,7 @@ public class Settings {
     public static boolean ENABLED = true;
     public static boolean AUTOMATIC_GARAGE = true;
     public static boolean AUTOMATIC_LOCK = true;
+    public static long FALL_TIME_TO_SPAWN = -1L;
     public static int STATUS_SIZE = 30;
     public static int ZOOM_SCROLL_AMOUNT = 700;
     public static boolean NEARBY_COP_DETECTOR = true;

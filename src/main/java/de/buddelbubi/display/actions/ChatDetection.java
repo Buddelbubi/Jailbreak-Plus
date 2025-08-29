@@ -11,11 +11,9 @@ public class ChatDetection {
     public static boolean CHAT = false;
 
     private static boolean inChat() {
-
         Point mouse = MouseInfo.getPointerInfo().getLocation();
-        Point chatbox = ScreenReader.calculateElementPos(0.3, 0.276);
+        Point chatbox = ScreenReader.calculateElementPos(0.3, 0.3);
         return mouse.x <= chatbox.x && mouse.y <= chatbox.y;
-
     }
 
     public static void handleClick() {
