@@ -89,6 +89,20 @@ public class ScreenReader {
         return false;
     }
 
+    public static boolean awaitEqualRGB(Point p, int tries) {
+        for(int i = 0; i < tries; i++) {
+            Color color = getColor(p);
+            System.out.println("Color " + i + ": " + String.format("\033[38;2;%d;%d;%dm", color.getRed(), color.getGreen(), color.getBlue()) + " " + color + "\033[0m" );
+            if(color.getRed() == color.getGreen() && color.getGreen() == color.getBlue()) return true;
+            try {
+                TimeUnit.MILLISECONDS.sleep(Settings.SCREEN_WAIT_MILLIS);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     public static boolean awaitColorGone(Point p, int tries) {
         Color wanted = getColor(p);
         for(int i = 0; i < tries; i++) {

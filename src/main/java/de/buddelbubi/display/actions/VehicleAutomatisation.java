@@ -84,12 +84,14 @@ public class VehicleAutomatisation {
             Point garage = ScreenReader.calculateElementPos(0, 0.6, 0);
             garage.x += ScreenReader.SCREEN.height * 0.4 * 0.4 * 0.75;
             ScreenReader.moveMouse(garage);
+            Thread.sleep(2);
             ScreenReader.click();
             Thread.sleep(10);
             //Not 100% accurate, had to calculate on pixels. Tested with 1440p and 1080p
             Point favorite_cars = ScreenReader.calculateElementPos(0.535, 0.105, 0);
-            if (!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179), 10)) return;
+            if (!ScreenReader.awaitEqualRGB(favorite_cars, 10)) return;
             ScreenReader.moveMouse(favorite_cars);
+            Thread.sleep(2);
             ScreenReader.click();
             Thread.sleep(10);
             ScreenReader.moveMouse(garage);
@@ -98,6 +100,7 @@ public class VehicleAutomatisation {
             Point favoriteStar = ScreenReader.calculateElementPos(0.325, 0.24, 0); //The star inside the vehicle field. Ensures that the first vehicle is actually a favorite.
             if (!ScreenReader.awaitColor(favoriteStar, new Color(255, 251, 0), 50)) {
                 ScreenReader.moveMouse(garage);
+                Thread.sleep(2);
                 ScreenReader.click();
                 spawnFirstFavorite();
                 return;
@@ -105,6 +108,7 @@ public class VehicleAutomatisation {
             Point first_favorite = ScreenReader.calculateElementPos(0.3, 0.2, 0);
             while (ScreenReader.awaitColor(favoriteStar, new Color(255, 251, 0), 1)) {
                 ScreenReader.moveMouse(first_favorite);
+                Thread.sleep(2);
                 ScreenReader.click();
                 Thread.sleep(10);
                 ScreenReader.moveMouse(origin);
@@ -158,11 +162,11 @@ public class VehicleAutomatisation {
         Point origin = MouseInfo.getPointerInfo().getLocation();
 
         Point garage = ScreenReader.calculateElementPos(0, 0.6, 0);
-        garage.x += ScreenReader.SCREEN.height*0.4*0.4*0.75;
+        garage.x += (int) (ScreenReader.SCREEN.height * 0.4f * 0.4f * 0.75f);
         ScreenReader.moveMouse(garage);
         ScreenReader.click();
         Point favorite_cars = ScreenReader.calculateElementPos(0.535, 0.105, 0);
-        if(!ScreenReader.awaitColor(favorite_cars, new Color(179, 179, 179))) return;
+        if(!ScreenReader.awaitEqualRGB(favorite_cars, 25)) return;
         ScreenReader.moveMouse(garage);
         ScreenReader.click();
 
