@@ -24,10 +24,12 @@ public class KeyboardListener implements NativeKeyListener {
 
         int code = nativeKeyEvent.getKeyCode();
         String key = KeyIdentifier.getKey(code);
-//        if(code >= 2 && code <= 10 && PRESSED_KEYS.contains("g") && !Settings.IN_ACTION) {
-//            ItemSpam.ITEM = code + 47;
-//            System.out.println("Locked in Item " + code);
-//        }
+        System.out.println(key + " " + code);
+
+        if(code >= 2 && code <= 10 && PRESSED_KEYS.contains("g") && !Settings.IN_ACTION) {
+            ItemSpam.ITEM = code + 47;
+            System.out.println("Locked in Item " + code);
+        }
 
         if(key == null) return;
         if(!PRESSED_KEYS.contains(key)) {
@@ -61,6 +63,7 @@ public class KeyboardListener implements NativeKeyListener {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
+                                if(Settings.IN_ACTION) return;
                                 VehicleAutomatisation.spawnFirstFavorite();
                             }
                         }).start();
@@ -69,9 +72,6 @@ public class KeyboardListener implements NativeKeyListener {
                         if(!VehicleAutomatisation.isDriving()) {
                             VehicleAutomatisation.enteredVehicle();
                         }
-                        break;
-                    case "b":
-                        AirdropGlitch.start();
                         break;
                     case "l":
                         VehicleAutomatisation.lockVehicle(true);
@@ -82,15 +82,18 @@ public class KeyboardListener implements NativeKeyListener {
                     case "n":
                         //HackTheComputer.run();
                         break;
-//                    ## They added a cooldown. Therefore, Item Spam is useless. If you have a usecase, please open an issue.
-//                    case "g":
-//                        if(!VehicleAutomatisation.isDriving()) {
-//                            ItemSpam.toggle();
-//                        }
-//                        break;
+                    case "g":
+                        if(!VehicleAutomatisation.isDriving()) {
+                            ItemSpam.toggle();
+                        }
+                        break;
                     case "enter":
                         ChatDetection.relaxChat();
                         break;
+                    default:
+                        if(PRESSED_KEYS.contains("num_0")) {
+                            AdminCommands.execute(key);
+                        }
                 }
             }
         }).start();

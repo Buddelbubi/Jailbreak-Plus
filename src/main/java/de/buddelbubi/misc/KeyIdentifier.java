@@ -1,11 +1,11 @@
 package de.buddelbubi.misc;
 
-import java.awt.event.KeyEvent;
-
 public class KeyIdentifier {
 
     public static String getKey(Integer key) {
         switch (key) {
+            case 11:
+                return "num_0";
             case 17:
                 return "w";
             case 18:
@@ -34,6 +34,9 @@ public class KeyIdentifier {
                 return "alt";
             case 57:
                 return "space";
+        }
+        if(key >= 2 && key <= 10) {
+            return "num_" + (key-1);
         }
         return null;
     }

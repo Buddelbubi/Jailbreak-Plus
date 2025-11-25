@@ -1,14 +1,10 @@
 package de.buddelbubi.display;
 
-import com.github.kwhat.jnativehook.GlobalScreen;
 import de.buddelbubi.misc.Settings;
 import lombok.Getter;
-import lombok.SneakyThrows;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class ScreenReader {
@@ -39,6 +35,7 @@ public class ScreenReader {
     }
 
     private static Point lastMoved = null;
+
     public static void moveMouse(Point p) {
         lastMoved = p;
         //have to move twice because one jump does not trigger the hover of a clickable UI element

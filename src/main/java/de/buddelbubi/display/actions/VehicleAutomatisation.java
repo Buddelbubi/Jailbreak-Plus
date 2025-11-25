@@ -7,10 +7,7 @@ import de.buddelbubi.misc.Settings;
 import lombok.SneakyThrows;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class VehicleAutomatisation {
